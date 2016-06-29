@@ -1,34 +1,36 @@
-nginx:
-  build: nginx-fpm
-  links:
-    - phpfpm
-  ports:
-    - "8080:80"
-  volumes_from:
-    - htdocs
-phpfpm:
-  build: php-5.6-fpm-custom
-  environment:
-    APPLICATION_ENV: development
-    DB_NAME: database
-    DB_USER: admin
-    DB_PASS: password
-  links:
-    - db
-  volumes_from:
-    - htdocs
-db:
-  build: postgres
-  volumes:
-    - /var/run/mysqld
-  environment:
-    DB_NAME: database
-    DB_USER: admin
-    DB_PASS: password
-    POSTGRES_PASSWORD: ch@ng3m3
-    POSTGRES_USER: postgresuser
-htdocs:
-  image: busybox
-  stdin_open: true
-  volumes:
-    - src:/var/www/html
+version: '2'
+services:
+  nginx:
+    build: nginx-fpm
+    links:
+      - phpfpm
+    ports:
+      - "8080:80"
+    volumes_from:
+      - htdocs
+  phpfpm:
+    build: php-7.0-fpm-custom
+    environment:
+      APPLICATION_ENV: development
+      DB_NAME: database
+      DB_USER: admin
+      DB_PASS: password
+    links:
+      - db
+    volumes_from:
+      - htdocs
+  db:
+    build: postgres
+    volumes:
+      - ./postgres/data:/var/lib/postgresql
+    environment:
+      DB_NAME: database
+      DB_USER: admin
+      DB_PASS: password
+      POSTGRES_PASSWORD: ch@ng3m3
+      POSTGRES_USER: postgresuser
+  htdocs:
+    image: busybox
+    stdin_open: true
+    volumes:
+      - ../ToiletHub-api/:/var/www/html
