@@ -12,3 +12,17 @@ CREATE TABLE toilets (
     type INT2 NOT NULL,
     position GEOMETRY(POINT, 4612)
 );
+
+CREATE TABLE reviews (
+    id SERIAL NOT NULL PRIMARY KEY,
+    user_id INT REFERENCES users (id),
+    toilet_id INT REFERENCES toilets (id),
+    rate INT2 CHECK (rate > 0 AND rate < 6),
+    comment TEXT
+);
+
+CREATE TABLE options (
+    toilet_id INT REFERENCES toilets (id),
+    name CHAR(40),
+    description TEXT
+);

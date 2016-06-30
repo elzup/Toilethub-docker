@@ -37,7 +37,7 @@ done
 
 
 
-gosu postgres pg_ctl start -w && gosu postgres psql -U "$DB_USER" -d "$DB_NAME" -f "$DB_PG_DUMP_FILE" && gosu postgres pg_ctl stop -w && /bin/rm -f ${DB_PG_DUMP_FILE};
+psql -U "$DB_USER" -d "$DB_NAME" -f "$DB_PG_DUMP_FILE" && /bin/rm -f ${DB_PG_DUMP_FILE};
 # gosu postgres pg_ctl start -w && gosu postgres psql -U "$DB_USER" -d "$DB_NAME" -f "$DB_PG_DUMP_FILE" && gosu postgres pg_ctl stop -w && /bin/rm -f ${DB_PG_DUMP_FILE}
 
 echo ""
