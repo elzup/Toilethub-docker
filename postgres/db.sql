@@ -8,7 +8,7 @@ CREATE TABLE users (
 
 CREATE TABLE toilets (
     id SERIAL NOT NULL PRIMARY KEY,
-    name CHAR(40) NOT NULL UNIQUE,
+    name VARCHAR(40) NOT NULL UNIQUE,
     type INT2 NOT NULL,
     position GEOMETRY(POINT, 4612)
 );
@@ -23,6 +23,6 @@ CREATE TABLE reviews (
 
 CREATE TABLE options (
     toilet_id INT REFERENCES toilets (id),
-    name CHAR(40),
+    name VARCHAR(40),
     description TEXT
 );
